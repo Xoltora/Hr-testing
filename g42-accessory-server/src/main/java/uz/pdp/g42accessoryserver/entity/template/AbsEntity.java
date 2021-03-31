@@ -41,4 +41,7 @@ public abstract class AbsEntity {
     private UUID updatedBy;
 
     private String description;
+
+    private boolean active=true;
+
 }
