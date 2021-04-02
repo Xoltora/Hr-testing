@@ -18,4 +18,6 @@ public abstract class AbsNameEntity implements Serializable {
     private String name;
 
     private String description;
+
+    private boolean active=true;
 }
