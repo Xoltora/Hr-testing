@@ -52,7 +52,7 @@ public class UserController {
     @PreAuthorize("hasAnyRole({'ROLE_SUPER_ADMIN','ROLE_MANAGER'})")
     @GetMapping("/all")
     public HttpEntity<?> all(@RequestParam(value = "page",defaultValue = AppConst.PAGE_DEFAULT_NUMBER)Integer page,
-                                @RequestParam(value = "size",defaultValue = AppConst.PAGE_DEFAULT_SIZE)Integer size){
+                                @RequestParam(value = "size",defaultValue = AppConst.PAGE_DEFAULT_SIZE)Integer size) throws IllegalAccessException {
         ApiResponse response = userService.all(page,size);
         return ResponseEntity.status(response.isSuccess()?200:409).body(response);
     }
