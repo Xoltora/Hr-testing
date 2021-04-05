@@ -22,7 +22,7 @@ public class Report extends AbsEntity {
     private User seller;
 
     @ManyToOne
-    private User manager;
+    private User managerOrDirector;
 
     private boolean accepted;
 }

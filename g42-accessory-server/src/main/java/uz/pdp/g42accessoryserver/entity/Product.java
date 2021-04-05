@@ -18,12 +18,6 @@ public class Product extends AbsEntity {
     @ManyToOne
     private Category category;
 
-    @ManyToOne
-    private Attachment attachment;
-
-    @ManyToOne
-    private Brand brand;
-
     private double incomePrice;
     private double salePrice;
     private int norma;

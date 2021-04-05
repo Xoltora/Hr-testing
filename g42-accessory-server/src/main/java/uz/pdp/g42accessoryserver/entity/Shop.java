@@ -18,11 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Shop extends AbsNameEntity {
-    @ManyToMany
-    private List<User> sellers;
-
     @ManyToOne
-    private User manager;
+    private User seller;
 
     @ManyToOne
     private Address address;

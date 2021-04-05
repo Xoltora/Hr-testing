@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @Entity
 public class Reject extends AbsEntity {
-    @ManyToOne
-    private Trade trade;
+
+    private double rejectTotalSum;
 
     @ManyToOne
     private Defect defect;
