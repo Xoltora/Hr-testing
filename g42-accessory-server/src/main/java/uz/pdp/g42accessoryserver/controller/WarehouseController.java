@@ -17,7 +17,7 @@ public class WarehouseController {
     @Autowired
     WarehouseService warehouseService;
 
-    @PreAuthorize("hasAnyRole({'ROLE_SUPER_ADMIN', 'ROLE_MANAGER'})")
+    @PreAuthorize("hasRole('ROLE_DIRECTOR')")
     @PostMapping("/saveOrEdit")
     public HttpEntity<?> saveOrEdit(@RequestBody WarehouseDto whdto) {
         ApiResponse apiResponse = warehouseService.saveOrEdit(whdto);
@@ -26,7 +26,6 @@ public class WarehouseController {
                 .body(apiResponse);
     }
 
-    @PreAuthorize("hasAnyRole({'ROLE_SUPER_ADMIN', 'ROLE_MANAGER'})")
     @GetMapping("/all")
     public HttpEntity<?> all(
             @RequestParam(value = "page", defaultValue = AppConst.PAGE_DEFAULT_NUMBER) Integer page,
@@ -37,7 +36,7 @@ public class WarehouseController {
     }
 
 
-    @PreAuthorize("hasAnyRole({'ROLE_SUPER_ADMIN', 'ROLE_MANAGER'})")
+    @PreAuthorize("hasRole('ROLE_DIRECTOR')")
     @GetMapping("/changeActive/{id}")
     public HttpEntity<?> changeActive(@PathVariable("id") Integer id) {
         ApiResponse apiResponse = warehouseService.changeActive(id);
@@ -45,7 +44,7 @@ public class WarehouseController {
     }
 
 
-    @PreAuthorize("hasAnyRole({'ROLE_SUPER_ADMIN', 'ROLE_MANAGER'})")
+    @PreAuthorize("hasRole('ROLE_DIRECTOR')")
     @GetMapping("/remove/{id}")
     public HttpEntity<?> remove(@PathVariable("id") Integer id) {
         ApiResponse apiResponse = warehouseService.remove(id);

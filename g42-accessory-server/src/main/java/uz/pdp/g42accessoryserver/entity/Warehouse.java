@@ -23,8 +23,7 @@ import java.util.List;
 @Entity
 public class Warehouse extends AbsNameEntity {
 
-    @ManyToOne
-    private Address address;
+    private String address;
 
     @ManyToOne
     private Shop shop;

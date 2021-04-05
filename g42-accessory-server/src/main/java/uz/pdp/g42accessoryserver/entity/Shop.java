@@ -25,8 +25,5 @@ public class Shop extends AbsNameEntity {
     @ManyToOne
     private User seller;
 
-    @ManyToOne
-    private Address address;
-
-    private boolean enabled=true;
+    private String address;
 }
