@@ -1,18 +1,15 @@
 package uz.pdp.g42accessoryserver.payload;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import uz.pdp.g42accessoryserver.entity.Address;
-import uz.pdp.g42accessoryserver.entity.Shop;
-import uz.pdp.g42accessoryserver.entity.User;
-
-import java.util.List;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class WarehouseDto {
     private Integer id;
     private String name;
     private String description;
-    private List<User> warehouseKeepers;
-    private Address address;
-    private Shop shop;
+    private String address;
 }

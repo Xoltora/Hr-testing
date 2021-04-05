@@ -40,10 +40,10 @@ public class UserService {
             user.setLastName(dto.getLastName());
             user.setPhoneNumber(dto.getPhoneNumber());
             user.setUsername(dto.getUsername());
-            if (dto.getPassword() != null && (hasRole(currentUser, RoleName.ROLE_SUPER_ADMIN) || hasRole(currentUser, RoleName.ROLE_MANAGER))) {
+            if (dto.getPassword() != null && (hasRole(currentUser, RoleName.ROLE_DIRECTOR) || hasRole(currentUser, RoleName.ROLE_MANAGER))) {
                 user.setPassword(passwordEncoder.encode(dto.getPassword()));
             }
-            if (dto.getRoleName() != null && !dto.getRoleName().equals(RoleName.ROLE_SUPER_ADMIN)) {
+            if (dto.getRoleName() != null && !dto.getRoleName().equals(RoleName.ROLE_DIRECTOR)) {
                 user.setRoles(Collections.singleton(roleRepository.findByRoleName(dto.getRoleName())));
             }
             userRepository.save(user);

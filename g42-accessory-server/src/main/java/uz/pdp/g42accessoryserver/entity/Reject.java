@@ -20,8 +20,8 @@ import javax.persistence.ManyToOne;
 @SQLDelete(sql = "update rejects set deleted=true where id=?")
 @Entity
 public class Reject extends AbsEntity {
-    @ManyToOne
-    private Trade trade;
+
+    private double rejectTotalSum;
 
     @ManyToOne
     private Defect defect;

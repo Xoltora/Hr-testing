@@ -3,13 +3,12 @@ package uz.pdp.g42accessoryserver.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import uz.pdp.g42accessoryserver.entity.Address;
 import uz.pdp.g42accessoryserver.entity.Shop;
 import uz.pdp.g42accessoryserver.entity.Warehouse;
 import uz.pdp.g42accessoryserver.payload.ApiResponse;
 import uz.pdp.g42accessoryserver.payload.ShopDto;
-import uz.pdp.g42accessoryserver.repository.AddressRepository;
 import uz.pdp.g42accessoryserver.repository.ShopRepository;
+import uz.pdp.g42accessoryserver.repository.UserRepository;
 import uz.pdp.g42accessoryserver.repository.WarehouseRepository;
 import uz.pdp.g42accessoryserver.utills.CommonUtills;
 
@@ -22,10 +21,13 @@ public class ShopService {
     ShopRepository shopRepository;
 
     @Autowired
-    AddressRepository addressRepository;
+    DtoService dtoService;
 
     @Autowired
     WarehouseRepository warehouseRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     public ApiResponse saveOrEdit(ShopDto shopDto) {
         try {
@@ -33,24 +35,19 @@ public class ShopService {
             if (shopDto.getId() != null) {
                 shop = shopRepository.findById(shopDto.getId()).orElseThrow(() -> new IllegalStateException("Shop not found"));
             }
-            shop.setSellers(shopDto.getSellersList());
-            shop.setManager(shopDto.getManager());
-            shopRepository.save(shop);
-
-            Optional<Address> optionalAddress = addressRepository.findAddressByName(shopDto.getAddress().toString());
-            Address address = optionalAddress.get();
-            address.setDistrict(shopDto.getAddress().getDistrict());
-            address.setLon(shopDto.getAddress().getLon());
-            address.setLat(shopDto.getAddress().getLat());
-            address.setHome(shopDto.getAddress().getHome());
-            address.setStreet(shopDto.getAddress().getStreet());
-            addressRepository.save(address);
-            shop.setAddress(address);
-
-            Optional<Warehouse> optionalWarehouse = warehouseRepository.findWarehouseById(shopDto.getId());
-            Warehouse warehouse = optionalWarehouse.get();
-            warehouse.setShop(shop);
-            warehouseRepository.save(warehouse);
+            shop.setName(shopDto.getName());
+            shop.setAddress(shopDto.getAddress());
+            shop.setSeller(userRepository.findById(shopDto.getSeller().getId()).orElseThrow(() -> new IllegalStateException("Seller not found")));
+            shop.setActive(shopDto.isActive());
+            Shop savedShop = shopRepository.save(shop);
+            if (shopDto.getId() == null) {
+                Warehouse warehouse = new Warehouse();
+                warehouse.setShop(savedShop);
+                warehouse.setActive(savedShop.isActive());
+                warehouse.setName(savedShop.getName() + " sklad");
+                warehouse.setAddress(savedShop.getAddress());
+                warehouseRepository.save(warehouse);
+            }
             return new ApiResponse(shopDto.getId() != null ? "Edited" : "Saved", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,24 +57,16 @@ public class ShopService {
 
 
     public ApiResponse all(Integer page, Integer size) throws IllegalAccessException {
-        Page<Shop> all = shopRepository.findAll(CommonUtills.getPageableByCreatedAtDesc(page, size));
-        return new ApiResponse("Ok",true,all.getContent().stream().map(this::getShopDto).collect(Collectors.toList()),all.getTotalElements(),all.getTotalPages());
-    }
-
-    public ShopDto getShopDto(Shop shop){
-        return new ShopDto(
-                shop.getId(),
-                shop.getManager(),
-                shop.getAddress(),
-                shop.getSellers());
+        Page<Shop> all = shopRepository.findAll(CommonUtills.getPageableByIdDesc(page, size));
+        return new ApiResponse("Ok", true, all.getContent().stream().map(shop -> dtoService.shopDto(shop)).collect(Collectors.toList()), all.getTotalElements(), all.getTotalPages());
     }
 
     public ApiResponse changeActive(Integer id) {
         try {
-            Shop shop =shopRepository.findById(id).orElseThrow(() -> new IllegalStateException("Shop not found"));
-            shop.setEnabled(!shop.isEnabled());
-           shopRepository.save(shop);
-            return new ApiResponse(shop.isEnabled()?"Activated":"Blocked", true);
+            Shop shop = shopRepository.findById(id).orElseThrow(() -> new IllegalStateException("Shop not found"));
+            shop.setActive(!shop.isActive());
+            shopRepository.save(shop);
+            return new ApiResponse(shop.isActive() ? "Activated" : "Blocked", true);
         } catch (Exception e) {
             e.printStackTrace();
         }
