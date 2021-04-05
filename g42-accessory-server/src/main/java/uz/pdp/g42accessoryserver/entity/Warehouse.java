@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import uz.pdp.g42accessoryserver.entity.template.AbsNameEntity;
 
 import javax.persistence.Entity;
@@ -16,6 +18,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Where(clause = "deleted is false")
+@SQLDelete(sql = "update warehouse set deleted=true where id=?")
 @Entity
 public class Warehouse extends AbsNameEntity {
     @ManyToMany
