@@ -9,20 +9,25 @@ import uz.pdp.g42accessoryserver.payload.WarehouseDto;
 import uz.pdp.g42accessoryserver.repository.WarehouseRepository;
 import uz.pdp.g42accessoryserver.utills.CommonUtills;
 
+import java.util.stream.Collectors;
+
 
 @Service
 public class WarehouseService {
     @Autowired
     WarehouseRepository warehouseRepository;
 
+    @Autowired
+    DtoService dtoService;
+
     public ApiResponse all(Integer page, Integer size){
         try {
             Page<Warehouse> all = warehouseRepository
-                    .findAll(CommonUtills.getPageableByCreatedAtDesc(page, size));
+                    .findAll(CommonUtills.getPageableByIdDesc(page, size));
             return new ApiResponse(
                     "Success",
                     true,
-                    all.getContent(),
+                    all.getContent().stream().map(warehouse -> dtoService.warehouseDto(warehouse)).collect(Collectors.toList()),
                     all.getTotalElements(),
                     all.getTotalPages());
         } catch (IllegalAccessException e) {
@@ -39,10 +44,8 @@ public class WarehouseService {
                         .orElseThrow(() -> new IllegalStateException("WareHouse not found"));
             }
             warehouse.setAddress(whdto.getAddress());
-            warehouse.setName(warehouse.getName());
+            warehouse.setName(whdto.getName());
             warehouse.setDescription(whdto.getDescription());
-            warehouse.setShop(whdto.getShop());
-            warehouse.setWarehouseKeepers(warehouse.getWarehouseKeepers());
             warehouseRepository.save(warehouse);
             return new ApiResponse(whdto.getId() != null ? "Edited" : "Saved", true);
         } catch (Exception e) {
@@ -66,8 +69,6 @@ public class WarehouseService {
 
     public ApiResponse remove(Integer id){
         try{
-            warehouseRepository.findById(id)
-                    .orElseThrow(() -> new IllegalStateException("WareHouse not found"));
             warehouseRepository.deleteById(id);
             return new ApiResponse("Deleted", true);
         }catch (Exception e){
@@ -75,4 +76,6 @@ public class WarehouseService {
             return new ApiResponse("Error", false);
         }
     }
+
+
 }

@@ -32,14 +32,14 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (mode.equals("always")){
-            Role superAdmin = roleRepository.save(new Role(RoleName.ROLE_SUPER_ADMIN));
+            Role director = roleRepository.save(new Role(RoleName.ROLE_DIRECTOR));
             userRepository.save(new User(
                     "Director",
-                    "Director",
+                    "Directorov",
                     "+998993632587",
                     "director",
-                    passwordEncoder.encode("root123"),
-                    Collections.singleton(superAdmin)
+                    passwordEncoder.encode("director"),
+                    Collections.singleton(director)
             ));
 
         }

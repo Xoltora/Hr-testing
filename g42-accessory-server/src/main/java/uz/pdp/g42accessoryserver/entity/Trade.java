@@ -19,6 +19,9 @@ public class Trade extends AbsEntity {
     private Shop shop;
 
     @ManyToOne
+    private User seller;
+
+    @ManyToOne
     private Report report;
 
     private double totalSum;
