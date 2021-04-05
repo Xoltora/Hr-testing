@@ -22,14 +22,8 @@ import java.util.List;
 @SQLDelete(sql = "update shop set deleted=true where id=?")
 @Entity
 public class Shop extends AbsNameEntity {
-    @ManyToMany
-    private List<User> sellers;
-
     @ManyToOne
-    private User manager;
+    private User seller;
 
-    @ManyToOne
-    private Address address;
-
-    private boolean enabled=true;
+    private String address;
 }
