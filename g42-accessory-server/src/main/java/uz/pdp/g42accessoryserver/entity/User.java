@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import uz.pdp.g42accessoryserver.entity.template.AbsEntity;
@@ -17,6 +19,8 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Where(clause = "deleted is false")
+@SQLDelete(sql = "update users set deleted=true where id=?")
 @Entity(name = "users")
 public class User extends AbsEntity implements UserDetails {
 
