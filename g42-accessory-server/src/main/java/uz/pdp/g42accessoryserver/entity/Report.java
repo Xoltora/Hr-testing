@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import uz.pdp.g42accessoryserver.entity.template.AbsEntity;
-
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -25,4 +24,5 @@ public class Report extends AbsEntity {
     private User manager;
 
     private boolean accepted;
+
 }
