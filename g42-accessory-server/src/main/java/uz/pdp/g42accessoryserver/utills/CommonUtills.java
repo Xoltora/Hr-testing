@@ -26,6 +26,16 @@ public class CommonUtills {
         return PageRequest.of(page, size, Sort.Direction.ASC, "createdAt");
     }
 
+    public static Pageable getPageableByIdDesc(int page, int size) throws IllegalAccessException {
+        validatePageNumberAndSize(page, size);
+        return PageRequest.of(page, size, Sort.Direction.DESC, "id");
+    }
+
+    public static Pageable getPageableByIdAsc(int page, int size) throws IllegalAccessException {
+        validatePageNumberAndSize(page, size);
+        return PageRequest.of(page, size, Sort.Direction.ASC, "id");
+    }
+
     public static Pageable simplePageable(int page, int size) throws IllegalAccessException {
         validatePageNumberAndSize(page, size);
         return PageRequest.of(page, size);

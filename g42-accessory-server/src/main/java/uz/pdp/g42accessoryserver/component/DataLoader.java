@@ -38,7 +38,7 @@ public class DataLoader implements CommandLineRunner {
                     "Directorov",
                     "+998993632587",
                     "director",
-                    passwordEncoder.encode("root123"),
+                    passwordEncoder.encode("director"),
                     Collections.singleton(director)
             ));
 
