@@ -22,6 +22,8 @@ public class Product extends AbsEntity {
     @ManyToOne
     private Category category;
 
+    private String name;
+
     private double incomePrice;
     private double salePrice;
     private int norma;
