@@ -29,7 +29,8 @@ public class DtoService {
                shop.getName(),
                shop.getDescription(),
                shop.getAddress(),
-                userDto(shop.getSeller())
+                userDto(shop.getSeller()),
+                shop.isActive()
         );
     }
 
