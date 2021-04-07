@@ -13,8 +13,18 @@ import uz.pdp.g42accessoryserver.utills.AppConst;
 @RestController
 @RequestMapping("/api/shop")
 public class ShopController {
-    @Autowired
-    ShopService shopService;
+//    @Autowired
+//    ShopService shopService;
+
+    private static ShopService shopService;
+
+    public ShopController(ShopService shopService) {
+        this.shopService = shopService;
+    }
+
+    public static void setShopService(ShopService shopService) {
+        ShopController.shopService = shopService;
+    }
 
     @PreAuthorize("hasRole({'ROLE_DIRECTOR'})")
     @PostMapping("/saveOrEdit")
