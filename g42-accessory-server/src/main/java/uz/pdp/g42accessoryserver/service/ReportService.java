@@ -17,8 +17,6 @@ public class ReportService {
     @Autowired
     ReportRepository reportRepository;
 
-    @Autowired
-    UserRepository userRepository;
 
 
 //    public ApiResponse all(Integer page, Integer size) throws IllegalAccessException {
