@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import uz.pdp.g42accessoryserver.entity.template.AbsEntity;
-
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -29,4 +28,5 @@ public class Report extends AbsEntity {
     private User managerOrDirector;
 
     private boolean accepted;
+
 }
