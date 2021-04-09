@@ -3,6 +3,7 @@ package uz.pdp.g42accessoryserver.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import uz.pdp.g42accessoryserver.payload.SignIn;
 import uz.pdp.g42accessoryserver.service.AuthService;
 
 @RestController
+@Controller
 @RequestMapping("/api/auth")
 public class AuthController {
     @Autowired
