@@ -1,9 +1,11 @@
 package uz.pdp.g42accessoryserver.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.g42accessoryserver.entity.Category;
 import uz.pdp.g42accessoryserver.payload.ApiResponse;
@@ -14,6 +16,7 @@ import uz.pdp.g42accessoryserver.utills.AppConst;
 import java.util.UUID;
 
 @RestController
+@Controller
 @RequestMapping("/api/product")
 public class ProductController {
     @Autowired
@@ -23,6 +26,7 @@ public class ProductController {
     @PreAuthorize("hasAnyRole({'ROLE_DIRECTOR'})")
     public HttpEntity<?> addProduct(@RequestBody ProductDto dto){
         ApiResponse response = productService.saveProduct(dto);
+
         return ResponseEntity.status(response.isSuccess()?201:409).body(response);
     }
 

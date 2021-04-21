@@ -47,6 +47,10 @@ public class User extends AbsEntity implements UserDetails {
         this.roles = roles;
     }
 
+    public User() {
+
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

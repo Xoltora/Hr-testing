@@ -35,7 +35,7 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         //O'ZIMIZ YOZGAN METHOD. MAQSAD USER(USERDETAILS) NI OLISH
         UserDetails userDetails = getUserDetails(httpServletRequest);
-        //BEARE TOKEN YOKI BASIC TOKEN ORQALI TEKSHIRILIB OLINGAN USER
+        //BEARER TOKEN YOKI BASIC TOKEN ORQALI TEKSHIRILIB OLINGAN USER
         if (userDetails != null) {
             if (userDetails.isEnabled()
                     && userDetails.isAccountNonExpired()

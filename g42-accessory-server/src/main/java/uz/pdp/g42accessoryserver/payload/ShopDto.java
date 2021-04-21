@@ -18,4 +18,6 @@ public class ShopDto {
     private String address;
     private UserDto seller;
     private boolean active;
+
+
 }

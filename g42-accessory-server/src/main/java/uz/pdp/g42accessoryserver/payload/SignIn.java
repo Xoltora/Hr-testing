@@ -6,4 +6,6 @@ import lombok.Data;
 public class SignIn {
     private String username;
     private String password;
+
+
 }

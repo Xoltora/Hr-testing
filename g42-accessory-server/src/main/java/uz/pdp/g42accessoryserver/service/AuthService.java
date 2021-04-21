@@ -45,6 +45,7 @@ public class AuthService implements UserDetailsService {
             );
             SecurityContextHolder.getContext().setAuthentication(authentication);
             User principal = (User) authentication.getPrincipal();
+
             String jwt = jwtTokenProvider.generateToken(principal.getId());
             return new ResToken(jwt);
         }catch (Exception e){
