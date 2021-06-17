@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import uz.pdp.g42accessoryserver.entity.Category;
 import uz.pdp.g42accessoryserver.payload.ApiResponse;
 import uz.pdp.g42accessoryserver.payload.ProductDto;
+import uz.pdp.g42accessoryserver.secret.CurrentUser;
 import uz.pdp.g42accessoryserver.service.ProductService;
 import uz.pdp.g42accessoryserver.utills.AppConst;
 
@@ -65,5 +66,10 @@ public class ProductController {
                                 @RequestParam(value = "size", defaultValue = AppConst.PAGE_DEFAULT_SIZE) Integer size) {
         ApiResponse apiResponse = productService.filter(salePrice1, salePrice2, category, page, size);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/one")
+    public HttpEntity<?> getOne(@CurrentUser CurrentUser currentUser){
+        return ResponseEntity.ok("hello");
     }
 }
