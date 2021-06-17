@@ -42,8 +42,8 @@ public class ShopController {
 
     @PreAuthorize("hasRole({'ROLE_DIRECTOR'})")
     @GetMapping("/changeActive/{id}")
-    public HttpEntity<?> changeActive(@PathVariable Integer id){
+    public HttpEntity<?> changeActive(@PathVariable Integer id) {
         ApiResponse response = shopService.changeActive(id);
-        return ResponseEntity.status(response.isSuccess()?200:409).body(response);
+        return ResponseEntity.status(response.isSuccess() ? 200 : 409).body(response);
     }
 }

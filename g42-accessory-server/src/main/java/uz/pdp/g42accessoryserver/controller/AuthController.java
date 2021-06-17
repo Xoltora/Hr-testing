@@ -20,9 +20,9 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/login")
-    public HttpEntity<?> login(@RequestBody SignIn signIn){
-        ResToken resToken=authService.signIn(signIn);
+    public HttpEntity<?> login(@RequestBody SignIn signIn) {
+        ResToken resToken = authService.signIn(signIn);
 
-        return ResponseEntity.status(resToken!=null?200:401).body(resToken);
+        return ResponseEntity.status(resToken != null ? 200 : 401).body(resToken);
     }
 }

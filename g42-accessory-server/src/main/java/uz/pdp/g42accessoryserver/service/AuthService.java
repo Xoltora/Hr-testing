@@ -1,4 +1,5 @@
 package uz.pdp.g42accessoryserver.service;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,10 +32,10 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username+" not found"));
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
     }
 
-    public User loadByUserId(UUID userId){
+    public User loadByUserId(UUID userId) {
         return userRepository.findById(userId).orElseThrow(() -> new IllegalStateException("user not found"));
     }
 
@@ -48,7 +49,7 @@ public class AuthService implements UserDetailsService {
 
             String jwt = jwtTokenProvider.generateToken(principal.getId());
             return new ResToken(jwt);
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

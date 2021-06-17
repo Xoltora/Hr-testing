@@ -18,7 +18,6 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Where(clause = "deleted is false")
 @SQLDelete(sql = "update users set deleted=true where id=?")
 @Entity(name = "users")
@@ -33,10 +32,10 @@ public class User extends AbsEntity implements UserDetails {
     @ManyToMany
     private Set<Role> roles;
 
-    private boolean accountNonBlocked=true;
-    private boolean accountNonExpired=true;
-    private boolean credentialNonExpired=true;
-    private boolean enabled=true;
+    private boolean accountNonBlocked = true;
+    private boolean accountNonExpired = true;
+    private boolean credentialNonExpired = true;
+    private boolean enabled = true;
 
     public User(String firstName, String lastName, String phoneNumber, String username, String password, Set<Role> roles) {
         this.firstName = firstName;

@@ -31,7 +31,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (mode.equals("always")){
+        if (mode.equals("always")) {
             Role director = roleRepository.save(new Role(RoleName.ROLE_DIRECTOR));
             userRepository.save(new User(
                     "Director",

@@ -80,7 +80,7 @@ public class UserService {
             User user = userRepository.findById(id).orElseThrow(() -> new IllegalStateException("User not found"));
             user.setEnabled(!user.isEnabled());
             userRepository.save(user);
-            return new ApiResponse(user.isEnabled()?"Activated":"Blocked", true);
+            return new ApiResponse(user.isEnabled() ? "Activated" : "Blocked", true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,10 +99,10 @@ public class UserService {
 
     public ApiResponse all(Integer page, Integer size) throws IllegalAccessException {
         Page<User> all = userRepository.findAll(CommonUtills.getPageableByCreatedAtDesc(page, size));
-        return new ApiResponse("Ok",true,all.getContent().stream().map(this::getUserDto).collect(Collectors.toList()),all.getTotalElements(),all.getTotalPages());
+        return new ApiResponse("Ok", true, all.getContent().stream().map(this::getUserDto).collect(Collectors.toList()), all.getTotalElements(), all.getTotalPages());
     }
 
-    public UserDto getUserDto(User user){
+    public UserDto getUserDto(User user) {
         return new UserDto(
                 user.getId(),
                 user.getFirstName(),

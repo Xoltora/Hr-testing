@@ -18,6 +18,6 @@ public class Category extends AbsNameEntity {
     @ManyToOne
     private Category parent;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "parent",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Category> children;
 }

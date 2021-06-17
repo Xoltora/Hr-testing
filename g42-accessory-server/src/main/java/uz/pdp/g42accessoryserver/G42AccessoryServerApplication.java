@@ -8,7 +8,7 @@ import uz.pdp.g42accessoryserver.config.InitConfig;
 public class G42AccessoryServerApplication {
 
     public static void main(String[] args) {
-        if (InitConfig.isStart()){
+        if (InitConfig.isStart()) {
             SpringApplication.run(G42AccessoryServerApplication.class, args);
         }
     }

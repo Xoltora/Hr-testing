@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResToken {
-    private String type="Bearer ";
+    private String type = "Bearer ";
     private String token;
 
     public ResToken(String token) {

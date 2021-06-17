@@ -25,15 +25,15 @@ public class ProductService {
     public ApiResponse saveProduct(ProductDto dto) {
         try {
             Product product = new Product();
-                product.setCategory(categoryRepository.findById(dto.getCategory().getId())
-                        .orElseThrow(() -> new IllegalStateException("Category not found")));
+            product.setCategory(categoryRepository.findById(dto.getCategory().getId())
+                    .orElseThrow(() -> new IllegalStateException("Category not found")));
             product.setSalePrice(dto.getSalePrice());
             product.setIncomePrice(dto.getIncomePrice());
             product.setNorma(dto.getNorma());
             product.setName(dto.getName());
             productRepository.save(product);
             return new ApiResponse("Saved", true);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return new ApiResponse("Error", false);
         }
@@ -51,7 +51,7 @@ public class ProductService {
             product.setName(dto.getName());
             productRepository.save(product);
             return new ApiResponse("Edited", true);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return new ApiResponse("Error", false);
         }
@@ -63,7 +63,7 @@ public class ProductService {
             Product product = productRepository.findById(id).orElseThrow(() -> new IllegalStateException("Product not found"));
             product.setActive(!product.isActive());
             productRepository.save(product);
-            return new ApiResponse(product.isActive()?"Activated":"Blocked", true);
+            return new ApiResponse(product.isActive() ? "Activated" : "Blocked", true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,26 +82,26 @@ public class ProductService {
 
     public ApiResponse all(Integer page, Integer size) throws IllegalAccessException {
         Page<Product> all = productRepository.findAll(CommonUtills.getPageableByCreatedAtDesc(page, size));
-        return new ApiResponse("Ok",true,all.getContent().stream().map(this::getProductDto).collect(Collectors.toList()),all.getTotalElements(),all.getTotalPages());
+        return new ApiResponse("Ok", true, all.getContent().stream().map(this::getProductDto).collect(Collectors.toList()), all.getTotalElements(), all.getTotalPages());
     }
 
-    public ProductDto getProductDto(Product product){
+    public ProductDto getProductDto(Product product) {
         return new ProductDto(
-                        product.getId(),
-                        product.getCategory(),
+                product.getId(),
+                product.getCategory(),
                 product.getName(),
                 product.getIncomePrice(),
                 product.getSalePrice(),
                 product.getNorma(),
                 product.isActive()
-                );
+        );
     }
 
     public ApiResponse filter(double salePrice1, double salePrice2, Category category, Integer page, Integer size) {
         try {
             Page<Product> all = productRepository.findBySalePriceBetweenAndCategory(salePrice1, salePrice2, category, CommonUtills.getPageableByCreatedAtDesc(page, size));
-            return new ApiResponse("Ok",true,all.getContent().stream().map(this::getProductDto).collect(Collectors.toList()),all.getTotalElements(),all.getTotalPages());
-        }catch (Exception e){
+            return new ApiResponse("Ok", true, all.getContent().stream().map(this::getProductDto).collect(Collectors.toList()), all.getTotalElements(), all.getTotalPages());
+        } catch (Exception e) {
             e.printStackTrace();
             return new ApiResponse("Error", false);
         }

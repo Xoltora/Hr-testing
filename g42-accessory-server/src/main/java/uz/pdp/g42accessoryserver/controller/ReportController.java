@@ -21,14 +21,14 @@ public class ReportController {
     public HttpEntity<?> getAll(@RequestParam boolean accepted,
                                 @RequestParam(value = "page", defaultValue = AppConst.PAGE_DEFAULT_NUMBER) Integer page,
                                 @RequestParam(value = "size", defaultValue = AppConst.PAGE_DEFAULT_SIZE) Integer size) throws IllegalAccessException {
-        ApiResponse response = reportService.getReport(accepted,page,size);
-        return ResponseEntity.status(response.isSuccess()?200:409).body(response);
+        ApiResponse response = reportService.getReport(accepted, page, size);
+        return ResponseEntity.status(response.isSuccess() ? 200 : 409).body(response);
     }
 
     @PreAuthorize("hasAnyRole({'ROLE_MANAGER','ROLE_SUPER_ADMIN'})")
     @PutMapping("/update")
-    public HttpEntity<?> update(boolean accepted){
+    public HttpEntity<?> update(boolean accepted) {
         ApiResponse response = reportService.updateReport(accepted);
-        return ResponseEntity.status(response.isSuccess()?200:409).body(response);
+        return ResponseEntity.status(response.isSuccess() ? 200 : 409).body(response);
     }
 }

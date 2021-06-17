@@ -25,7 +25,7 @@ public class AuditorAwareImpl implements AuditorAware<UUID> {
 
         if (!(authentication == null || !authentication.isAuthenticated()
                 || "anonymousUser".equals("" + authentication.getPrincipal()))) {
-            return Optional.of();
+            return Optional.of(((User) authentication.getPrincipal()).getId());
         }
         return Optional.empty();
     }

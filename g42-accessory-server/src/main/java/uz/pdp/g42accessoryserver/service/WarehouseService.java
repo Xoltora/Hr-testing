@@ -20,7 +20,7 @@ public class WarehouseService {
     @Autowired
     DtoService dtoService;
 
-    public ApiResponse all(Integer page, Integer size){
+    public ApiResponse all(Integer page, Integer size) {
         try {
             Page<Warehouse> all = warehouseRepository
                     .findAll(CommonUtills.getPageableByIdDesc(page, size));
@@ -54,24 +54,24 @@ public class WarehouseService {
         }
     }
 
-    public ApiResponse changeActive(Integer id){
-        try{
+    public ApiResponse changeActive(Integer id) {
+        try {
             Warehouse warehouse = warehouseRepository.findById(id)
                     .orElseThrow(() -> new IllegalStateException("WareHouse not found"));
             warehouse.setActive(!warehouse.isActive());
             warehouseRepository.save(warehouse);
-            return new ApiResponse(warehouse.isActive()?"Activated":"Blocked", true);
-        }catch (Exception e){
+            return new ApiResponse(warehouse.isActive() ? "Activated" : "Blocked", true);
+        } catch (Exception e) {
             e.printStackTrace();
             return new ApiResponse("Error", false);
         }
     }
 
-    public ApiResponse remove(Integer id){
-        try{
+    public ApiResponse remove(Integer id) {
+        try {
             warehouseRepository.deleteById(id);
             return new ApiResponse("Deleted", true);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return new ApiResponse("Error", false);
         }

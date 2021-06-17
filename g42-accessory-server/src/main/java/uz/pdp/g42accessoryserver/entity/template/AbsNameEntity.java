@@ -19,5 +19,5 @@ public abstract class AbsNameEntity implements Serializable {
 
     private String description;
 
-    private boolean active=true;
+    private boolean active = true;
 }

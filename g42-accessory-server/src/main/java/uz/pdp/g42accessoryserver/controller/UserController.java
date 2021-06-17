@@ -23,39 +23,39 @@ public class UserController {
 
     @PostMapping("/saveOrEdit")
     public HttpEntity<?> saveOrEdit(@RequestBody UserDto dto,
-                                    @CurrentUser User user){
-        ApiResponse response = userService.saveOrEdit(dto,user);
-        return ResponseEntity.status(response.isSuccess()?response.getMessage().equals("Edited")?202:201:409).body(response);
+                                    @CurrentUser User user) {
+        ApiResponse response = userService.saveOrEdit(dto, user);
+        return ResponseEntity.status(response.isSuccess() ? response.getMessage().equals("Edited") ? 202 : 201 : 409).body(response);
     }
 
     @GetMapping("/changePassword")
     public HttpEntity<?> changePassword(@RequestParam String oldPassword,
                                         @RequestParam String newPassword,
-                                        @CurrentUser User user){
-        ApiResponse response = userService.changePassword(oldPassword,newPassword,user);
-        return ResponseEntity.status(response.isSuccess()?200:409).body(response);
+                                        @CurrentUser User user) {
+        ApiResponse response = userService.changePassword(oldPassword, newPassword, user);
+        return ResponseEntity.status(response.isSuccess() ? 200 : 409).body(response);
     }
 
     @PreAuthorize("hasAnyRole({'ROLE_SUPER_ADMIN','ROLE_MANAGER'})")
     @GetMapping("/changeActive/{id}")
-    public HttpEntity<?> changeActive(@PathVariable UUID id){
+    public HttpEntity<?> changeActive(@PathVariable UUID id) {
         ApiResponse response = userService.changeActive(id);
-        return ResponseEntity.status(response.isSuccess()?200:409).body(response);
+        return ResponseEntity.status(response.isSuccess() ? 200 : 409).body(response);
     }
 
     @PreAuthorize("hasAnyRole({'ROLE_SUPER_ADMIN','ROLE_MANAGER'})")
     @GetMapping("/remove/{id}")
-    public HttpEntity<?> remove(@PathVariable UUID id){
+    public HttpEntity<?> remove(@PathVariable UUID id) {
         ApiResponse response = userService.remove(id);
-        return ResponseEntity.status(response.isSuccess()?200:409).body(response);
+        return ResponseEntity.status(response.isSuccess() ? 200 : 409).body(response);
     }
 
     @PreAuthorize("hasAnyRole({'ROLE_SUPER_ADMIN','ROLE_MANAGER'})")
     @GetMapping("/all")
-    public HttpEntity<?> all(@RequestParam(value = "page",defaultValue = AppConst.PAGE_DEFAULT_NUMBER)Integer page,
-                                @RequestParam(value = "size",defaultValue = AppConst.PAGE_DEFAULT_SIZE)Integer size) throws IllegalAccessException {
-        ApiResponse response = userService.all(page,size);
-        return ResponseEntity.status(response.isSuccess()?200:409).body(response);
+    public HttpEntity<?> all(@RequestParam(value = "page", defaultValue = AppConst.PAGE_DEFAULT_NUMBER) Integer page,
+                             @RequestParam(value = "size", defaultValue = AppConst.PAGE_DEFAULT_SIZE) Integer size) throws IllegalAccessException {
+        ApiResponse response = userService.all(page, size);
+        return ResponseEntity.status(response.isSuccess() ? 200 : 409).body(response);
     }
 
 }

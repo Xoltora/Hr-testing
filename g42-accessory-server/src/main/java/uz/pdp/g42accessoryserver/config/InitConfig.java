@@ -16,10 +16,9 @@ public class InitConfig {
             if (props.getProperty("spring.jpa.hibernate.ddl-auto").equals("update")
                     && props.getProperty("spring.datasource.initialization-mode").equals("never")) {
                 return true;
-            }
-            else{
+            } else {
                 String confirm = JOptionPane.showInputDialog("Ma'lumotlarni o'chirib yuborma! Keyin bilmay qoldim dema! Agar rostdan ham o'chirmoqchi bo'lsang. O'chirish kodi (DROP_G42_ACCESSORY_DATABASE) :");
-                if (confirm!=null && confirm.equals("DROP_G42_ACCESSORY_DATABASE")){
+                if (confirm != null && confirm.equals("DROP_G42_ACCESSORY_DATABASE")) {
                     return true;
                 }
             }

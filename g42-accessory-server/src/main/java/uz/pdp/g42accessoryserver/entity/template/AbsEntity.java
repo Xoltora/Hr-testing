@@ -42,6 +42,6 @@ public abstract class AbsEntity {
 
     private String description;
 
-    private boolean active=true;
+    private boolean active = true;
 
 }

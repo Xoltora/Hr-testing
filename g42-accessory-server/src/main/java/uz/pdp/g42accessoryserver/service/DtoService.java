@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class DtoService {
 
-    public WarehouseDto warehouseDto(Warehouse warehouse){
+    public WarehouseDto warehouseDto(Warehouse warehouse) {
         return new WarehouseDto(
                 warehouse.getId(),
                 warehouse.getName(),
@@ -23,18 +23,18 @@ public class DtoService {
         );
     }
 
-    public ShopDto shopDto(Shop shop){
+    public ShopDto shopDto(Shop shop) {
         return new ShopDto(
-               shop.getId(),
-               shop.getName(),
-               shop.getDescription(),
-               shop.getAddress(),
+                shop.getId(),
+                shop.getName(),
+                shop.getDescription(),
+                shop.getAddress(),
                 userDto(shop.getSeller()),
                 shop.isActive()
         );
     }
 
-    public UserDto userDto(User user){
+    public UserDto userDto(User user) {
         return new UserDto(
                 user.getId(),
                 user.getFirstName(),
